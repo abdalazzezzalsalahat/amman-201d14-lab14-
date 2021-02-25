@@ -22,10 +22,6 @@
 // ,'wine-glass.jpg'];
 
 // Cart constructor.
-const but = document.getElementById('catalog');
-const imeg = document.createElement('img');
-but.appendChild(imeg);
-imeg.src = "assets/arrow.png";
 
 const Cart = function(items) {
     // this.items is an array of CartItem instances.
@@ -39,7 +35,7 @@ Cart.prototype.addItem = function(product, quantity) {
 
 Cart.prototype.saveToLocalStorage = function() {
     // TODO: Fill in this instance method to save the contents of the cart to localStorage
-    localStorage.setItem(JSON.stringify(this.items));
+    localStorage.setItem('items', JSON.stringify(this.items));
 };
 
 Cart.prototype.removeItem = function(item) {
@@ -60,16 +56,6 @@ const Product = function(filePath, name) {
 };
 
 Product.allProducts = [];
-
-// function fillList() {
-//     let selList = document.getElementById('items');
-//     for (let i = 0; i < Product.allProducts.length; i++) {
-//         // let option = document.createElement('option');
-//         // selList.appendChild(option);
-//         // option.setAttribute("value", Product.allProducts[i].name);
-//         // option.textContent = Product.allProducts[i].name;
-//     }
-// }
 
 function generateCatalog() {
     new Product('assets/bag', 'Bag');
@@ -92,10 +78,8 @@ function generateCatalog() {
     new Product('assets/usb.gif', 'USB');
     new Product('assets/water-can', 'Water Can');
     new Product('assets/wine-glass', 'Wine Glass');
-    // fillList();
 }
 //checked
-
 
 // Initialize the app by creating the big list of products with images and names
 generateCatalog();

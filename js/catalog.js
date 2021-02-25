@@ -24,38 +24,50 @@ function populateForm() {
 // When someone submits the form, we need to add the selected item to the cart
 // object, save the whole thing back to local storage and update the screen
 // so that it shows the # of items in the cart and a quick preview of the cart itself.
-function handleSubmit(event) {
 
+function handleSubmit(event) {
     // TODO: Prevent the page from reloading
-    event.preventDefault();
-    document.getElementById('catalog').reset();
-    localStorage.setItem('items', Cart);
     // Do all the things ...
+    event.preventDefault();
 
     addSelectedItemToCart();
     cart.saveToLocalStorage();
     updateCounter();
     updateCartPreview();
 
+    localStorage.setItem("items",JSON.stringify(cart.items));
+    document.getElementById('catalog').reset();
 }
 
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
-    for (let i = 0; i < Cart.length; i++) {
-
-    }
+    
     // TODO: suss out the item picked from the select list
     // TODO: get the quantity
     // TODO: using those, add one item to the Cart
+    const selected = document.getElementById('items');
+    const quan = document.getElementById('quantity');
+    cart.items.push({Item: selected.value, quantity: quan.value});
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
-function updateCounter() {}
+function updateCounter() {
+    const hCunt = document.getElementById('itemCount');
+    hCunt.textContent = cart.items.length;
+}
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
     // TODO: Get the item and quantity from the form
     // TODO: Add a new element to the cartContents div with that information
+    const divCon = document.getElementById('cartContents');
+    const uList = document.createElement('ul');
+    divCon.appendChild(uList);
+    const lst = document.createElement('li');
+    uList.appendChild(lst);
+    const selected = document.getElementById('items');
+    const quan = document.getElementById('quantity');
+    lst.textContent = `you have orderd ${selected.value}, and a quantity of ${quan.value}`;
 }
 
 // Set up the "submit" event listener on the form.
@@ -67,3 +79,7 @@ catalogForm.addEventListener('submit', handleSubmit);
 // Before anything else of value can happen, we need to fill in the select
 // drop down list in the form.
 populateForm();
+const but = document.getElementById('catalog');
+const imeg = document.createElement('img');
+but.appendChild(imeg);
+imeg.src = "assets/arrow.png";
